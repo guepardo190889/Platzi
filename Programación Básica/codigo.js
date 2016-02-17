@@ -20,7 +20,7 @@
 //alert(5 + 8 + "2"); //132 --> (5+2) + "2"
 //alert("2" + 5 + 8);
 //alert("2" +  5 * 8); // la multiplicación tiene prioridad sobre la suma (precedencia de operadores)
-
+//alert("5 + 2 =" + (5+2) + " y no " + 5 + 2);
 
 var peso;
 var pesoEnMarte; //camelCase
@@ -34,4 +34,4 @@ pesoEnMarte = (peso / 9.81) * 3.711;
 
 //peso = Number(peso);
 //parseInt para convertir cadena a número
-alert(pesoEnMarte); 
+alert("Tu peso en marte es: " + pesoEnMarte + " Kg."); 
