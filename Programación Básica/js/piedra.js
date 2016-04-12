@@ -22,9 +22,29 @@ if(opcionUsuario == piedra) {
 }
 else if(opcionUsuario == papel) {
 	alert("Elegiste Papel!");
+
+	if(opcionMaquina == piedra) {
+		alert("Ganaste!");
+	}
+	else if(opcionMaquina == papel) {
+		alert("Empate!");
+	}
+	else if(opcionMaquina == tijera) {
+		alert("Perdiste!");
+	}
 }
 else if(opcionUsuario == tijera) {
 	alert("Elegiste Tijera!");
+
+	if(opcionMaquina == piedra) {
+		alert("Perdiste!");
+	}
+	else if(opcionMaquina == papel) {
+		alert("Ganaste!");
+	}
+	else if(opcionMaquina == tijera) {
+		alert("Empate!");
+	}
 }
 else {
 	alert("Pos qué chingaos?");
