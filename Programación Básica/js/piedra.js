@@ -1,8 +1,6 @@
 //Genera un número aleatorio entre un rango de enteros
 function aleatorio(minimo,maximo) {
-	var numero = Math.floor(Math.random() * (maximo - minimo + 1) + minimo);
-
-	return numero;
+	return Math.floor(Math.random() * (maximo - minimo + 1) + minimo);
 }
 
 var piedra = 0;
