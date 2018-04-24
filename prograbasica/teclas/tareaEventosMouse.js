@@ -21,7 +21,7 @@ function dibujarTablero() {
   dibujarLinea("black", 0, 0, canvas.width, 0);
   dibujarLinea("black", canvas.width, 0, canvas.width, canvas.height);
   dibujarLinea("black", canvas.width, canvas.width, 0, canvas.height);
-  dibujarLinea("black", 0, canvas.height, 0, 00);
+  dibujarLinea("black", 0, canvas.height, 0, 0);
 }
 
 function dibujarConMouse(event) {
