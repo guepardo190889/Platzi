@@ -4,7 +4,7 @@ IMAGENES["Pokacho"] = "pollo.png";
 IMAGENES["Tocinauro"] = "cerdo.png";
 
 class Pakiman {
-  constructor(nombre,vida, ataque){
+  constructor(nombre, vida, ataque) {
     this.nombre = nombre;
     this.vida = vida;
     this.ataque = ataque;
@@ -17,7 +17,7 @@ class Pakiman {
   }
 
   mostrar() {
-    
+    document.appendChild(this.imagen);
   }
 
 }
@@ -28,4 +28,4 @@ var tocinauro = new Pakiman("Tocinauro", 120, 40);
 
 //console.log(cauchin, pokacho, tocinauro);
 
-//pokacho.hablar();
+pokacho.mostrar();
