@@ -5,6 +5,9 @@ var canvas = document.getElementById("canvas");
 
 var tablero = canvas.getContext("2d");
 
+var casilla =  {tableroX : 0, tableroY : 0, canvasX : 0, canvasY : 0, pintado : false};
+var culebrita = 
+
 var tamanioCubo = 10;
 var tamanioCulebritaInicial = 3;
 
