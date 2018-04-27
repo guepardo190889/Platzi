@@ -3,13 +3,11 @@ var canvas = document.getElementById("canvas");
 //canvas.addEventListener("mouseup", terminarDibujo);
 //canvas.addEventListener("mousemove", dibujarConMouse);
 
-var tablero = canvas.getContext("2d");
-
-var casilla =  {tableroX : 0, tableroY : 0, canvasX : 0, canvasY : 0, pintado : false};
-var culebrita = 
-
-var tamanioCubo = 10;
+var canvasContext = canvas.getContext("2d");
 var tamanioCulebritaInicial = 3;
+
+
+
 
 dibujarTablero();
 

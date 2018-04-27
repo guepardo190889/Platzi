@@ -3,29 +3,18 @@ IMAGENES["Cauchin"] = "vaca.png";
 IMAGENES["Pokacho"] = "pollo.png";
 IMAGENES["Tocinauro"] = "cerdo.png";
 
-class Pakiman {
-  constructor(nombre, vida, ataque) {
-    this.nombre = nombre;
-    this.vida = vida;
-    this.ataque = ataque;
-    this.imagen = new Image();
-    this.imagen.src = IMAGENES[this.nombre];
-  }
+var pakidex = [];
+pakidex.push(new Pakiman("Cauchin", 100, 30));
+pakidex.push(new Pakiman("Pokacho", 80, 50));
+pakidex.push(new Pakiman("Tocinauro", 120, 40));
 
-  hablar() {
-    alert(this.nombre);
-  }
-
-  mostrar() {
-    document.appendChild(this.imagen);
-  }
-
+//in es para el índice
+//of es para el objeto
+for(var p of pakidex) {
+  p.mostrar();
 }
-
-var cauchin = new Pakiman("Cauchin", 100, 30);
-var pokacho = new Pakiman("Pokacho", 80, 50);
-var tocinauro = new Pakiman("Tocinauro", 120, 40);
-
-//console.log(cauchin, pokacho, tocinauro);
-
-pokacho.mostrar();
+/*
+//Recorrer atributos de un objeto
+for(var x in pakidex[0]) {
+  console.log(x);
+}*/
