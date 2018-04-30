@@ -1,42 +1,130 @@
+var TAMANIO_INICIAL_CULEBRITA = 3;
+
 var canvas = document.getElementById("canvas");
 //canvas.addEventListener("mousedown", comenzarDibujo);
 //canvas.addEventListener("mouseup", terminarDibujo);
 //canvas.addEventListener("mousemove", dibujarConMouse);
 
 var canvasContext = canvas.getContext("2d");
-var tamanioCulebritaInicial = 3;
 
+var numCasillas = 50;
+var tamanioCasilla = 10;
+var tablero = [];
+var culebra = new Culebra();
 
+/*function test() {
+  var fruits = ["Banana", "Orange", "Apple", "Mango"];
+  fruits.unshift("Lemon");    // Adds a new element "Lemon" to fruits
+  console.log(fruits);
+  fruits.shift();
+  console.log(fruits);
+}
+test();*/
 
-
-dibujarTablero();
-
-dibujarCulebritaInicial();
-
-function dibujarTablero() {
-  dibujarLinea("black", 0, 0, canvas.width, 0);
-  dibujarLinea("black", canvas.width, 0, canvas.width, canvas.height);
-  dibujarLinea("black", canvas.width, canvas.width, 0, canvas.height);
-  dibujarLinea("black", 0, canvas.height, 0, 0);
+function dibujarMarco() {
+  dibujarLinea("black", 0, 0, (numCasillas*tamanioCasilla)+1, 0);
+  dibujarLinea("black", (numCasillas*tamanioCasilla)+1, 0, (numCasillas*tamanioCasilla)+1, (numCasillas*tamanioCasilla)+1);
+  dibujarLinea("black", (numCasillas*tamanioCasilla)+1, (numCasillas*tamanioCasilla)+1, 0, (numCasillas*tamanioCasilla)+1);
+  dibujarLinea("black", 0, (numCasillas*tamanioCasilla)+1, 0, 0);
 }
 
 function dibujarLinea(color, xInicial, yInicial, xFinal, yFinal) {
-  tablero.beginPath();
-  tablero.strokeStyle = color;
-  tablero.lineWidth = 1;
-  tablero.moveTo(xInicial, yInicial);
-  tablero.lineTo(xFinal, yFinal);
-  tablero.stroke();
-  tablero.closePath();
+  canvasContext.beginPath();
+  canvasContext.strokeStyle = color;
+  canvasContext.lineWidth = 1;
+  canvasContext.moveTo(xInicial, yInicial);
+  canvasContext.lineTo(xFinal, yFinal);
+  canvasContext.stroke();
+  canvasContext.closePath();
 }
 
-function dibujarCulebritaInicial() {
-  //obtener el punto medio del tablero
-  dibujarPunto(300, 300);
+function crearTablero(tamanioTablero, tamanioCasilla, canvasXInicial, canvasYInicial) {
+  var t = new Array(tamanioTablero)
+
+  for(var i = 0; i < tamanioTablero; i++) {
+    t[i] = new Array(tamanioTablero);
+
+    var canvasXOriginal = canvasXInicial;
+    var canvasYOriginal = canvasYInicial;
+
+    for(var j=0; j < tamanioTablero; j++) {
+      //console.log(x+","+y);
+      t[i][j] = new Casilla(j, i, canvasXInicial, canvasYInicial, tamanioCasilla, canvasContext);
+      canvasXInicial = canvasXInicial + tamanioCasilla;
+      //console.log(i + "," + j + "=" + t[i][j]);
+    }
+
+    canvasXInicial = canvasXOriginal;
+    canvasYInicial = canvasYOriginal + tamanioCasilla;
+  }
+
+  return t;
 }
 
-function dibujarPunto(xInicial, yInicial) {
-  for (var i = 0; i < tamanioCubo; i++) {
-    dibujarLinea("blue", xInicial, yInicial + i, xInicial + tamanioCubo, yInicial + i);
+function crearCulebritaInicial() {
+  var xCentral = parseInt(tablero.length / 2);
+  var yCentral = xCentral;
+
+  for (var i = 0; i < TAMANIO_INICIAL_CULEBRITA; i++) {
+    culebra.casillas.push(tablero[xCentral][yCentral]);
+    yCentral = yCentral - 1;
+  }
+
+  //inicializar siguiente y anterior
+  for(var i = 0; i < TAMANIO_INICIAL_CULEBRITA; i++){
+    var casilla = culebra.casillas[i];
+    if(i < TAMANIO_INICIAL_CULEBRITA - 1) {
+      casilla.anterior = culebra.casillas[i+1];
+    }
+    if(i > 0) {
+      casilla.siguiente = culebra.casillas[i - 1];
+    }
   }
 }
+
+function pintarTablero() {
+  for (var i = 0; i < tablero.length; i++) {
+    for(var j = 0; j < tablero.length; j++) {
+      //console.log("pintando casilla");
+      tablero[i][j].pintar(canvasContext);
+    }
+  }
+}
+
+function inicializar() {
+  tablero = crearTablero(numCasillas, tamanioCasilla,  1, 1);
+}
+
+function avanzarDerecha(avanzar) {
+  while(avanzar) {
+    var cabeza = culebra.getCabeza();
+    //console.log("cabeza: " + cabeza.imprimir());
+    //console.log("cc nueva cabeza: " + (cabeza.tableroX + 1)   + "," + cabeza.tableroY);
+
+    //Validar que puedo seguir avanzando
+    var nuevaCabeza = tablero[cabeza.tableroY][cabeza.tableroX + 1];
+    //console.log("nuevaCabeza: " + nuevaCabeza.imprimir());
+    culebra.agregarNuevaCabeza(nuevaCabeza);
+  }
+}
+
+function puedoAvanzarDeracha(casilla) {
+
+}
+
+inicializar();
+dibujarMarco();
+crearCulebritaInicial();
+
+culebra.pintar();
+avanzarDerecha(true);
+
+/*imprimirCulebra() {
+  for(var i = 0; i < tablero.length; i++) {
+    for(var j = 0; j < tablero.length; j++) {
+      log.console(tablero[i][j]);
+    }
+  }
+}*/
+
+//pintarTablero();
