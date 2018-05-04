@@ -12,15 +12,6 @@ var tamanioCasilla = 10;
 var tablero = [];
 var culebra = new Culebra();
 
-/*function test() {
-  var fruits = ["Banana", "Orange", "Apple", "Mango"];
-  fruits.unshift("Lemon");    // Adds a new element "Lemon" to fruits
-  console.log(fruits);
-  fruits.shift();
-  console.log(fruits);
-}
-test();*/
-
 function dibujarMarco() {
   dibujarLinea("black", 0, 0, (numCasillas*tamanioCasilla)+1, 0);
   dibujarLinea("black", (numCasillas*tamanioCasilla)+1, 0, (numCasillas*tamanioCasilla)+1, (numCasillas*tamanioCasilla)+1);
@@ -95,8 +86,7 @@ function inicializar() {
   tablero = crearTablero(numCasillas, tamanioCasilla,  1, 1);
 }
 
-function avanzarDerecha(avanzar) {
-  while(avanzar) {
+function avanzarDerecha() {
     var cabeza = culebra.getCabeza();
     //console.log("cabeza: " + cabeza.imprimir());
     //console.log("cc nueva cabeza: " + (cabeza.tableroX + 1)   + "," + cabeza.tableroY);
@@ -105,11 +95,14 @@ function avanzarDerecha(avanzar) {
     var nuevaCabeza = tablero[cabeza.tableroY][cabeza.tableroX + 1];
     //console.log("nuevaCabeza: " + nuevaCabeza.imprimir());
     culebra.agregarNuevaCabeza(nuevaCabeza);
-  }
 }
 
 function puedoAvanzarDeracha(casilla) {
 
+}
+
+function moverSerpiente() {
+    setInterval(avanzarDerecha, 1000);
 }
 
 inicializar();
@@ -117,7 +110,8 @@ dibujarMarco();
 crearCulebritaInicial();
 
 culebra.pintar();
-avanzarDerecha(true);
+
+moverSerpiente();
 
 /*imprimirCulebra() {
   for(var i = 0; i < tablero.length; i++) {
