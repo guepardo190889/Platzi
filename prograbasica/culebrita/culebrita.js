@@ -24,6 +24,10 @@ var interval;
 //var direccion = TECLAS.RIGTH;
 var nuevaDireccion = TECLAS.RIGTH;
 
+function aleatorio(min, max) {
+  return Math.floor(Math.random() * (max - min +1)) + min;
+}
+
 function dibujarMarco() {
   dibujarLinea("black", 0, 0, (numCasillas*tamanioCasilla)+1, 0);
   dibujarLinea("black", (numCasillas*tamanioCasilla)+1, 0, (numCasillas*tamanioCasilla)+1, (numCasillas*tamanioCasilla)+1);
@@ -104,6 +108,7 @@ function inicializar() {
   tablero = crearTablero(numCasillas, tamanioCasilla,  1, 1);
   this.dibujarMarco();
   this.crearCulebritaInicial();
+  this.culebra.generarComida(tablero);
   this.inializarMovimiento();
 }
 

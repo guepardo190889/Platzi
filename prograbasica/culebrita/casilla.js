@@ -5,6 +5,7 @@ class Casilla {
     this.canvasX = canvasX;
     this.canvasY = canvasY;
     this.pintado = false;
+    this.comida = false;
     this.tamanio = tamanio;
     this.canvas = canvas;
   }

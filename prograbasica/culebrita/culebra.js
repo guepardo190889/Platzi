@@ -120,4 +120,22 @@ class Culebra {
     this.casillas.pop();
   }
 
+  generarComida(tablero) {
+    var generada = false;
+
+    while(!generada) {
+      var comidaX = aleatorio(0,tablero.length);
+      var comidaY = aleatorio(0,tablero.length);
+
+      console.log("comida: " + comidaX + "," + comidaY);
+
+      if(!tablero[comidaY][comidaX].pintado) {
+        tablero[comidaY][comidaX].comida = true;
+        tablero[comidaY][comidaX].pintar();
+        generada = true;
+
+      }
+    }
+  }
+
 }
