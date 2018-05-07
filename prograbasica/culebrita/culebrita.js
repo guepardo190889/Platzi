@@ -99,7 +99,7 @@ function inializarMovimiento() {
 }
 
 function inicializar() {
-  console.log("inicializar");
+  //console.log("inicializar");
   tablero = crearTablero(numCasillas, tamanioCasilla,  1, 1);
   this.dibujarMarco();
   this.crearCulebritaInicial();

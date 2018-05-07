@@ -37,7 +37,7 @@ class Culebra {
     console.log("avanzando en dirección: " + this.imprimirDireccion(direccion));
     var avanzar = false;
     var cabeza = this.getCabeza();
-    console.log("cabeza: " + cabeza.imprimir());
+    //console.log("cabeza: " + cabeza.imprimir());
 
     var nuevaCabeza = null;
 
@@ -68,7 +68,6 @@ class Culebra {
 
     if(avanzar) {
       //console.log("nuevaCabeza: " + nuevaCabeza);
-
       this.casillas.unshift(nuevaCabeza);
       this.borrarUltimo();
       this.pintar();
