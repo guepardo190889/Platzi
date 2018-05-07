@@ -7,8 +7,6 @@ class Casilla {
     this.pintado = false;
     this.tamanio = tamanio;
     this.canvas = canvas;
-    this.siguiente = null;
-    this.anterior = null;
   }
 
   pintar() {
@@ -18,9 +16,12 @@ class Casilla {
     var canvasXDestino = canvasXOrigen + this.tamanio;
 
     for (var i = 0; i < this.tamanio; i++) {
+      if(this.pintado) {}
       this.dibujar(canvasXOrigen, canvasYOrigen, canvasXDestino, canvasYOrigen);
       canvasYOrigen = canvasYOrigen + 1;
-      }
+    }
+
+    this.pintando = true;
   }
 
   dibujar(xInicial, yInicial, xFinal, yFinal) {
@@ -34,9 +35,9 @@ class Casilla {
     this.canvas.closePath();
   }
 
-  limpiarSiguienteAnterior() {
-    this.siguiente = null;
-    this.anterior = null;
+  limpiar() {
+    //this.canvas.clearRect(this.canvasX, this.canvasY, this.canvasX + this.tamanio, this.canvasY + this.tamanio);
+    this.pintado = false;
   }
 
   imprimir() {
@@ -45,9 +46,7 @@ class Casilla {
     ", canvasX:" + this.canvasX +
     ", canvasY:" + this.canvasY +
     ", pintado:" + this.pintado +
-    ", tamanio:" + this.tamanio +
-    ", siguiente: " + this.siguiente +
-    ", anterior: " + this.anterior;
+    ", tamanio:" + this.tamanio;
 
     return str;
   }

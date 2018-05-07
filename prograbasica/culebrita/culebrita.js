@@ -1,5 +1,12 @@
 var TAMANIO_INICIAL_CULEBRITA = 3;
 
+var TECLAS = {
+  UP: 38,
+  DOWN: 40,
+  LEFT: 37,
+  RIGTH: 39
+};
+
 var canvas = document.getElementById("canvas");
 //canvas.addEventListener("mousedown", comenzarDibujo);
 //canvas.addEventListener("mouseup", terminarDibujo);
@@ -11,6 +18,7 @@ var numCasillas = 50;
 var tamanioCasilla = 10;
 var tablero = [];
 var culebra = new Culebra();
+var interval;
 
 function dibujarMarco() {
   dibujarLinea("black", 0, 0, (numCasillas*tamanioCasilla)+1, 0);
@@ -61,16 +69,7 @@ function crearCulebritaInicial() {
     yCentral = yCentral - 1;
   }
 
-  //inicializar siguiente y anterior
-  for(var i = 0; i < TAMANIO_INICIAL_CULEBRITA; i++){
-    var casilla = culebra.casillas[i];
-    if(i < TAMANIO_INICIAL_CULEBRITA - 1) {
-      casilla.anterior = culebra.casillas[i+1];
-    }
-    if(i > 0) {
-      casilla.siguiente = culebra.casillas[i - 1];
-    }
-  }
+  culebra.pintar();
 }
 
 function pintarTablero() {
@@ -82,36 +81,29 @@ function pintarTablero() {
   }
 }
 
+function mover() {
+  if(!culebra.avanzar(tablero, TECLAS.RIGTH)) {
+    clearInterval(interval);
+    alert("Te moriste por llegar al final del tablero");
+  }
+}
+
+function inializarMovimiento() {
+  /*for(var i = 0; i < 5; i++) {
+    mover();
+  }*/
+    interval = setInterval(mover, 1000);
+}
+
 function inicializar() {
+  console.log("inicializar");
   tablero = crearTablero(numCasillas, tamanioCasilla,  1, 1);
-}
-
-function avanzarDerecha() {
-    var cabeza = culebra.getCabeza();
-    //console.log("cabeza: " + cabeza.imprimir());
-    //console.log("cc nueva cabeza: " + (cabeza.tableroX + 1)   + "," + cabeza.tableroY);
-
-    //Validar que puedo seguir avanzando
-    var nuevaCabeza = tablero[cabeza.tableroY][cabeza.tableroX + 1];
-    //console.log("nuevaCabeza: " + nuevaCabeza.imprimir());
-    culebra.agregarNuevaCabeza(nuevaCabeza);
-}
-
-function puedoAvanzarDeracha(casilla) {
-
-}
-
-function moverSerpiente() {
-    setInterval(avanzarDerecha, 1000);
+  this.dibujarMarco();
+  this.crearCulebritaInicial();
+  this.inializarMovimiento();
 }
 
 inicializar();
-dibujarMarco();
-crearCulebritaInicial();
-
-culebra.pintar();
-
-moverSerpiente();
 
 /*imprimirCulebra() {
   for(var i = 0; i < tablero.length; i++) {

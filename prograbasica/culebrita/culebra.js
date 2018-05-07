@@ -4,11 +4,10 @@ class Culebra {
   }
 
   pintar() {
-    console.log("pintando culebra");
-
     for (var i = 0; i < this.casillas.length; i++) {
-      console.log("casilla: " + this.casillas [i].imprimir());
-      this.casillas[i].pintar();
+      if(!this.casillas[i].pintado) {
+        this.casillas[i].pintar();
+      }
     }
   }
 
@@ -16,30 +15,69 @@ class Culebra {
     return this.casillas[0];
   }
 
-  actualizarSiguienteAnterior() {
-    //inicializar siguiente y anterior
-    for(var i = 0; i < this.casillas.length; i++){
-      var casilla = this.casillas[i];
-      if(i < this.casillas.length - 1) {
-        casilla.anterior = this.casillas[i+1];
-      }
-      if(i > 0) {
-        casilla.siguiente = this.casillas[i - 1];
+  avanzar(tablero, direccion) {
+    var avanzar = false;
+    var cabeza = this.getCabeza();
+    console.log("cabeza: " + cabeza.imprimir());
+
+    var nuevaCabeza = null;
+
+    if(TECLAS.UP == direccion) {
+        if(this.puedoAvanzarArriba()) {
+          avanzar = true;
+          nuevaCabeza = tablero[cabeza.tableroY - 1][cabeza.tableroX];
+        }
+    }
+    else if(TECLAS.DOWN == direccion) {
+      if(this.puedoAvanzarAbajo(tablero)) {
+        avanzar = true;
+        nuevaCabeza = tablero[cabeza.tableroY + 1][cabeza.tableroX];
       }
     }
+    else if(TECLAS.LEFT == direccion) {
+      if(this.puedoAvanzarIzquierda()) {
+        avanzar = true;
+        nuevaCabeza = tablero[cabeza.tableroY][cabeza.tableroX - 1];
+      }
+    }
+    else if(TECLAS.RIGTH == direccion) {
+      if(this.puedoAvanzarDerecha(tablero)) {
+        avanzar = true;
+        nuevaCabeza = tablero[cabeza.tableroY][cabeza.tableroX + 1];
+      }
+    }
+
+    if(avanzar) {
+      //console.log("nuevaCabeza: " + nuevaCabeza);
+
+      this.casillas.unshift(nuevaCabeza);
+      this.borrarUltimo();
+      this.pintar();
+    }
+    
+    return avanzar;
   }
 
-  agregarNuevaCabeza(cabeza) {
-    //agregar cabeza al principio
-    this.casillas.unshift(cabeza);
-    //cabeza no tiene siguiente
-    this.casillas[0].siguiente = null;
-    this.actualizarSiguienteAnterior();
-    //nueva cola no tiene anterior
-    this.casillas[this.casillas.length - 2].anterior = null;
-    this.casillas[this.casillas.length - 1].limpiarSiguienteAnterior();
-    this.pintar();
-    //Remover cola anterior
+  puedoAvanzarArriba() {
+    return this.getCabeza().tableroY - 1 >= 0;
+  }
+
+  puedoAvanzarAbajo(tablero) {
+    return this.getCabeza().tableroY + 1 <= tablero.length - 1;
+  }
+
+  puedoAvanzarIzquierda() {
+    return this.getCabeza().tableroX - 1 >= 0;
+  }
+
+  puedoAvanzarDerecha(tablero) {
+    var cabeza = this.getCabeza();
+    //console.log("avanzarDerecha-> cabeza.tableroX =" + cabeza.tableroX + ", tamanio: " + tablero.length);
+    return this.getCabeza().tableroX + 1 <= tablero.length - 1;
+  }
+
+  borrarUltimo() {
+    this.casillas [this.casillas.length - 1].limpiar();
     this.casillas.pop();
   }
 
