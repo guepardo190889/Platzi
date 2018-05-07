@@ -21,7 +21,8 @@ var tamanioCasilla = 10;
 var tablero = [];
 var culebra = new Culebra();
 var interval;
-var direccion = TECLAS.RIGTH;
+//var direccion = TECLAS.RIGTH;
+var nuevaDireccion = TECLAS.RIGTH;
 
 function dibujarMarco() {
   dibujarLinea("black", 0, 0, (numCasillas*tamanioCasilla)+1, 0);
@@ -85,7 +86,7 @@ function pintarTablero() {
 }
 
 function mover() {
-  if(!culebra.avanzar(tablero, direccion)) {
+  if(!culebra.avanzar(tablero, nuevaDireccion)) {
     clearInterval(interval);
     alert("Te moriste por llegar al final del tablero");
   }
@@ -109,7 +110,7 @@ function inicializar() {
 function cambiarDireccion(event) {
   console.log("keyCode: " + event.keyCode);
   if(TECLAS.RIGTH == event.keyCode || TECLAS.LEFT == event.keyCode || TECLAS.UP == event.keyCode || TECLAS.DOWN == event.keyCode) {
-    direccion = event.keyCode;
+    nuevaDireccion = event.keyCode;
   }
   else {
     console.log("tecla inválida");
