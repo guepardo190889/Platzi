@@ -15,7 +15,26 @@ class Culebra {
     return this.casillas[0];
   }
 
+  imprimirDireccion(direccion) {
+    var dir = "";
+    if(TECLAS.UP == direccion) {
+      dir = "ARRIBA";
+    }
+    else if(TECLAS.DOWN == direccion) {
+      dir = "ABAJO";
+    }
+    else if(TECLAS.LEFT == direccion) {
+      dir = "IZQUIERDA";
+    }
+    else if(TECLAS.RIGTH == direccion) {
+      dir = "DERECHA";
+    }
+
+    return dir;
+  }
+
   avanzar(tablero, direccion) {
+    console.log("avanzando en dirección: " + this.imprimirDireccion(direccion));
     var avanzar = false;
     var cabeza = this.getCabeza();
     console.log("cabeza: " + cabeza.imprimir());
@@ -54,11 +73,12 @@ class Culebra {
       this.borrarUltimo();
       this.pintar();
     }
-    
+
     return avanzar;
   }
 
   puedoAvanzarArriba() {
+    console.log("avanzarArriba-> cabeza.tableroY =" + this.getCabeza().tableroY + ", tamanio: " + tablero.length);
     return this.getCabeza().tableroY - 1 >= 0;
   }
 
@@ -71,7 +91,6 @@ class Culebra {
   }
 
   puedoAvanzarDerecha(tablero) {
-    var cabeza = this.getCabeza();
     //console.log("avanzarDerecha-> cabeza.tableroX =" + cabeza.tableroX + ", tamanio: " + tablero.length);
     return this.getCabeza().tableroX + 1 <= tablero.length - 1;
   }
