@@ -1,21 +1,23 @@
 class Tablero {
-  constructor(numCasillas, tamanioCasilla, tamanioInicialCulebrita, canvasXInicial, canvasYInicial, canvasContext) {
+  constructor(numCasillas, tamanioCasilla, tamanioInicialCulebrita, canvasXInicial, canvasYInicial, canvasContext, canvasWidth, canvasHeight) {
     this.numCasillas = numCasillas;
     this.tamanioCasilla = tamanioCasilla;
     this.tamanioInicialCulebrita = tamanioInicialCulebrita;
     this.canvasXInicial = canvasXInicial;
     this.canvasYInicial = canvasYInicial;
     this.canvas = canvasContext;
+    this.canvasWidth = canvasWidth;
+    this.canvasHeight = canvasHeight;
     this.tablero = [];
     this.culebra = new Culebra();
     this.nuevaDireccion = TECLAS.RIGTH;
   }
 
   dibujarMarco() {
-    dibujar(this.canvas, "black", 0, 0, (this.numCasillas*this.tamanioCasilla)+1, 0);
-    dibujar(this.canvas, "black", (this.numCasillas*this.tamanioCasilla)+1, 0, (this.numCasillas*this.tamanioCasilla)+1, (this.numCasillas*this.tamanioCasilla)+1);
-    dibujar(this.canvas, "black", (this.numCasillas*this.tamanioCasilla)+1, (this.numCasillas*this.tamanioCasilla)+1, 0, (this.numCasillas*this.tamanioCasilla)+1);
-    dibujar(this.canvas, "black", 0, (this.numCasillas*this.tamanioCasilla)+1, 0, 0);
+    dibujar(this.canvas, "black", 1, 1, canvas.width - 1, 1); //línea superior
+    dibujar(this.canvas, "black", canvas.width - 1, 0, canvas.width - 1, canvas.height - 1); //línea lateral derecha
+    dibujar(this.canvas, "black", canvas.width - 1, canvas.height - 1, 0, canvas.height - 1); //línea inferior
+    dibujar(this.canvas, "black", 0, canvas.height - 1, 1, 1); //línea lateral izquierda
   }
 
   crearTablero() {

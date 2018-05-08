@@ -3,7 +3,7 @@ var canvasContext = canvas.getContext("2d");
 
 document.addEventListener("keydown", cambiarDireccion);
 
-var tablero = new Tablero(50, 10, 3, 2, 2, canvasContext);
+var tablero = new Tablero(50, 10, 3, 2, 2, canvasContext, canvas.width, canvas.height);
 var interval = 0;
 
 function cambiarDireccion(event) {

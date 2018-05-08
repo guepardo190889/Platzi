@@ -104,14 +104,14 @@ function validar() {
 		alert("La posición sólo admite números, no letras");
 	}
 
-	if(valido == 1 && (SUPERIOR_DERECHA != posicion && 
-		SUPERIOR_IZQUIERDA != posicion && 
-		INFERIOR_IZQUIERDA != posicion && 
+	if(valido == 1 && (SUPERIOR_DERECHA != posicion &&
+		SUPERIOR_IZQUIERDA != posicion &&
+		INFERIOR_IZQUIERDA != posicion &&
 		INFERIOR_DERECHA != posicion)) {
 		valido = 0;
 		alert("La posición debe ser de 1 a 4");
 	}
-	
+
 	if(valido == 1 && isNaN(numLineas)) {
 		valido = 0;
 		alert("La cantidad de líneas sólo admite números, no letras");
