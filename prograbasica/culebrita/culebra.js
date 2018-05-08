@@ -146,4 +146,10 @@ class Culebra {
     }
   }
 
+  imprimir() {
+    var str = "casillas:" + this.casillas +
+    ", direccion:" + this.direccion;
+    return str;
+  }
+
 }

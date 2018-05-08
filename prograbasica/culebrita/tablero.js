@@ -20,17 +20,17 @@ class Tablero {
   }
 
   crearTablero() {
-    this.tablero = new Array(this.tamanioTablero)
+    this.tablero = new Array(this.numCasillas)
 
-    for(var i = 0; i < this.tamanioTablero; i++) {
-      t[i] = new Array(this.tamanioTablero);
+    for(var i = 0; i < this.numCasillas; i++) {
+      this.tablero[i] = new Array(this.numCasillas);
 
       var canvasXOriginal = this.canvasXInicial;
       var canvasYOriginal = this.canvasYInicial;
 
-      for(var j=0; j < this.tamanioTablero; j++) {
+      for(var j=0; j < this.numCasillas; j++) {
         //console.log(x+","+y);
-        t[i][j] = new Casilla(j, i, this.canvasXInicial, this.canvasYInicial, this.tamanioCasilla, this.canvas);
+        this.tablero[i][j] = new Casilla(j, i, this.canvasXInicial, this.canvasYInicial, this.tamanioCasilla, this.canvas);
         this.canvasXInicial = this.canvasXInicial + this.tamanioCasilla;
         //console.log(i + "," + j + "=" + t[i][j]);
       }
