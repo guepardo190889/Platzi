@@ -31,7 +31,7 @@ class Culebra {
     return dir;
   }
 
-  mover() {
+  mover(tablero) {
     var avanzar = true;
     var cabeza = this.getCabeza();
     var nuevaCabeza = null;
@@ -65,9 +65,18 @@ class Culebra {
 
     if (avanzar) {
       //console.log("nuevaCabeza: " + nuevaCabeza);
-      this.casillas.unshift(nuevaCabeza);
-      this.borrarUltimo();
+        this.casillas.unshift(nuevaCabeza);
+
+      if(!nuevaCabeza.comida) {
+        this.borrarUltimo();
+      }
+      else {
+        this.generarComida(tablero);
+      }
+
       this.pintar();
+
+
     }
 
     return avanzar;
@@ -81,10 +90,10 @@ class Culebra {
 
     if(this.puedoIrEnEsaDireccion(nuevaDireccion)) {
       this.direccion = nuevaDireccion;
-      avanzar = this.mover();
+      avanzar = this.mover(tablero);
     }
     else {
-      avanzar = this.mover();
+      avanzar = this.mover(tablero);
     }
 
     return avanzar;
