@@ -142,7 +142,6 @@ class Culebra {
         tablero[comidaY][comidaX].comida = true;
         tablero[comidaY][comidaX].pintar();
         generada = true;
-
       }
     }
   }

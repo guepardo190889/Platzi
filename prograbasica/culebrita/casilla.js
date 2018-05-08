@@ -1,5 +1,5 @@
 class Casilla {
-  constructor(tableroX, tableroY, canvasX, canvasY, tamanio, canvas) {
+  constructor(tableroX, tableroY, canvasX, canvasY, tamanio, canvasContext) {
     this.tableroX = tableroX;
     this.tableroY = tableroY;
     this.canvasX = canvasX;
@@ -7,7 +7,7 @@ class Casilla {
     this.pintado = false;
     this.comida = false;
     this.tamanio = tamanio;
-    this.canvas = canvas;
+    this.canvas = canvasContext;
   }
 
   pintar() {
@@ -19,7 +19,7 @@ class Casilla {
     if(!this.pintado) {
       for (var i = 0; i < this.tamanio; i++) {
         //console.log("draw: " + canvasXOrigen+","+canvasYOrigen+","+canvasXDestino+","+canvasYOrigen);
-        this.dibujar(canvasXOrigen, canvasYOrigen, canvasXDestino, canvasYOrigen, "black");
+        dibujar(this.canvas, "black", canvasXOrigen, canvasYOrigen, canvasXDestino, canvasYOrigen);
         canvasYOrigen = canvasYOrigen + 1;
       }
 
@@ -29,7 +29,7 @@ class Casilla {
     console.log("pintado: " + this.imprimir());
   }
 
-  dibujar(xInicial, yInicial, xFinal, yFinal, color) {
+  /*dibujar(xInicial, yInicial, xFinal, yFinal, color) {
     //console.log("dibujando: xInicial: " + xInicial + ", yInicial: " + yInicial + ", xFinal: " + xFinal + ", yFinal: " + yFinal);
     this.canvas.beginPath();
     this.canvas.strokeStyle = color;
@@ -38,7 +38,7 @@ class Casilla {
     this.canvas.lineTo(xFinal, yFinal);
     this.canvas.stroke();
     this.canvas.closePath();
-  }
+  }*/
 
   limpiar() {
     console.log("limpiando: " + this.imprimir());
