@@ -75,8 +75,6 @@ class Culebra {
       }
 
       this.pintar();
-
-
     }
 
     return avanzar;
@@ -130,6 +128,9 @@ class Culebra {
   }
 
   generarComida(tablero) {
+    //console.log("Generando comida");
+    //console.log("tablero: " + tablero);
+
     var generada = false;
 
     while(!generada) {

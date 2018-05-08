@@ -9,7 +9,6 @@ class Tablero {
     this.tablero = [];
     this.culebra = new Culebra();
     this.nuevaDireccion = TECLAS.RIGTH;
-    this.interval = 0;
   }
 
   dibujarMarco() {
@@ -62,17 +61,7 @@ class Tablero {
   }
 
   mover() {
-    if(!this.culebra.avanzar(this.tablero, this.nuevaDireccion)) {
-      clearInterval(this.interval);
-      alert("Te moriste por llegar al final del tablero");
-    }
-  }
-
-  inializarMovimiento() {
-    /*for(var i = 0; i < 5; i++) {
-      mover();
-    }*/
-      this.interval = setInterval(this.mover(), 1000);
+    return this.culebra.avanzar(this.tablero, this.nuevaDireccion);
   }
 
   inicializar() {
@@ -81,7 +70,6 @@ class Tablero {
     this.dibujarMarco();
     this.crearCulebritaInicial();
     this.culebra.generarComida(this.tablero);
-    this.inializarMovimiento();
   }
 
 
