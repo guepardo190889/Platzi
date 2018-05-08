@@ -8,10 +8,6 @@ var TECLAS = {
 };
 
 var canvas = document.getElementById("canvas");
-//canvas.addEventListener("mousedown", comenzarDibujo);
-//canvas.addEventListener("mouseup", terminarDibujo);
-//canvas.addEventListener("mousemove", dibujarConMouse);
-
 var canvasContext = canvas.getContext("2d");
 
 document.addEventListener("keydown", cambiarDireccion);
@@ -21,7 +17,6 @@ var tamanioCasilla = 10;
 var tablero = [];
 var culebra = new Culebra();
 var interval;
-//var direccion = TECLAS.RIGTH;
 var nuevaDireccion = TECLAS.RIGTH;
 
 function aleatorio(min, max) {
@@ -105,7 +100,7 @@ function inializarMovimiento() {
 
 function inicializar() {
   //console.log("inicializar");
-  tablero = crearTablero(numCasillas, tamanioCasilla,  1, 1);
+  tablero = crearTablero(numCasillas, tamanioCasilla,  2, 2);
   this.dibujarMarco();
   this.crearCulebritaInicial();
   this.culebra.generarComida(tablero);
