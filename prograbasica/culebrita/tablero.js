@@ -72,9 +72,8 @@ class Tablero {
     var detenerInterval = true;
     //console.log("velocidadInicial: " + this.velocidadInicial);
     if(this.culebra.isNivelCompletado(this.tablero)) {
-      alert("Felicidades " + this.jugadorActual + "! Has completado el nivel " + this.nivel);
+      imprimirMensaje("Felicidades " + this.jugadorActual + ", has completado el nivel " + this.nivel + "!", "blue");
       this.casoEspecial();
-      //this.siguienteNivel();
 
       detenerInterval = true;
     }
@@ -86,8 +85,9 @@ class Tablero {
   }
 
   casoEspecial() {
+    console.log("Caso especial: " + this.nivel + "," + CASO_ESPECIAL_HABILITADO + "," + MENSAJE_CASO_ESPECIAL);
     if(NIVEL_MINIMO_CASO_ESPECIAL == this.nivel && CASO_ESPECIAL_HABILITADO) {
-      alert(this.jugadorActual + ", " + MENSAJE_CASO_ESPECIAL);
+      imprimirMensajeEspecial(this.jugadorActual + ", " + MENSAJE_CASO_ESPECIAL, "purple");
     }
   }
 
@@ -99,10 +99,17 @@ class Tablero {
   }
 
   imprimirNivel() {
-    document.getElementById("strong_nivel").innerHTML = "Nivel: " + this.nivel + "  -  " + (this.jugadorActual);
-    document.getElementById("p_detalle_nivel").innerHTML = "Tamaño: " + (this.numCasillas)
-    + "<br/>Casillas: " + (this.numCasillas*this.numCasillas)
-    + "<br/>Puntos: " + (this.culebra.getComidas());
+    document.getElementById("strong_jugador").innerHTML = "Jugador: " + this.jugadorActual;
+    document.getElementById("p_detalle_nivel").innerHTML = this.getDetalleNivel();
+  }
+
+  getDetalleNivel() {
+    var detalle = "";
+    detalle += "Nivel: " + this.nivel;
+    detalle += "<br/>Tamaño: " + this.numCasillas;
+    detalle += "<br/>Casillas: " + (this.numCasillas*this.numCasillas);
+    detalle += "<br/>Puntos: " + this.culebra.getComidas();
+    return detalle;
   }
 
   dibujaCanvas() {
@@ -150,6 +157,7 @@ class Tablero {
     this.numCasillas = this.nivel * CASILLAS_POR_NIVEL;
     this.culebra = new Culebra();
     this.nuevaDireccion = TECLAS.RIGTH;
+    imprimirMensaje("");
   }
 
   validaSiguienteNivel() {
@@ -169,7 +177,7 @@ class Tablero {
         }
       }
       else {
-        alert("Termina el nivel actual para poder continuar");
+        imprimirMensaje("Termina el nivel actual para poder continuar", "red");
       }
     }
 

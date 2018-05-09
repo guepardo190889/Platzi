@@ -66,12 +66,12 @@ class Culebra {
 
       if(this.chocoConmigoMismoAlAvanzar(nuevaCabeza)) {
         avanzar = false;
-        alert("Te moriste por chocar contigo mismo");
+        imprimirMensaje("Has chocado contra tí mismo!", "red");
       }
     }
     else {
       avanzar = false;
-      alert("Te moriste por llegar al final del tablero");
+      imprimirMensaje("Has chocado contra el tablero!", "red");
     }
 
     if (avanzar) {

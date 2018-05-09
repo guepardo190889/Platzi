@@ -12,3 +12,13 @@ function dibujar(canvas, color, xInicial, yInicial, xFinal, yFinal) {
 function aleatorio(min, max) {
   return Math.floor(Math.random() * (max - min +1)) + min;
 }
+
+function imprimirMensaje(mensaje, color) {
+  document.getElementById("p_mensajes").innerHTML = mensaje;
+  document.getElementById("p_mensajes").style.color = color;
+}
+
+function imprimirMensajeEspecial(mensaje, color) {
+  document.getElementById("p_mensajeEspecial").innerHTML = mensaje;
+  document.getElementById("p_mensajeEspecial").style.color = color;
+}
