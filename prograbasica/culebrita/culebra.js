@@ -32,26 +32,26 @@ class Culebra {
   }
 
   getNuevaCabeza(tablero, cabeza) {
-    console.log("obteniendo nueva cabeza");
-    console.log("dirección: " + this.imprimirDireccion(this.direccion));
-    console.log("cabeza actual: " + cabeza.imprimir());
+    //console.log("obteniendo nueva cabeza");
+    //console.log("dirección: " + this.imprimirDireccion(this.direccion));
+    //console.log("cabeza actual: " + cabeza.imprimir());
 
     var nuevaCabeza;
     if (TECLAS.UP == this.direccion) {
       nuevaCabeza = tablero[cabeza.tableroY - 1][cabeza.tableroX];
-      console.log("nueva cabeza " + this.imprimirDireccion(this.direccion) + " obtenida");
+      //console.log("nueva cabeza " + this.imprimirDireccion(this.direccion) + " obtenida");
     } else if (TECLAS.DOWN == this.direccion) {
       nuevaCabeza = tablero[cabeza.tableroY + 1][cabeza.tableroX];
-      console.log("nueva cabeza " + this.imprimirDireccion(this.direccion) + " obtenida");
+      //console.log("nueva cabeza " + this.imprimirDireccion(this.direccion) + " obtenida");
     } else if (TECLAS.LEFT == this.direccion) {
       nuevaCabeza = tablero[cabeza.tableroY][cabeza.tableroX - 1];
-      console.log("nueva cabeza " + this.imprimirDireccion(this.direccion) + " obtenida");
+      //console.log("nueva cabeza " + this.imprimirDireccion(this.direccion) + " obtenida");
     } else if (TECLAS.RIGTH == this.direccion) {
       nuevaCabeza = tablero[cabeza.tableroY][cabeza.tableroX + 1];
-      console.log("nueva cabeza " + this.imprimirDireccion(this.direccion) + " obtenida");
+      //console.log("nueva cabeza " + this.imprimirDireccion(this.direccion) + " obtenida");
     }
 
-    console.log("nueva cabeza: " + nuevaCabeza.imprimir());
+    //console.log("nueva cabeza: " + nuevaCabeza.imprimir());
     return nuevaCabeza;
   }
 
@@ -59,7 +59,7 @@ class Culebra {
     var avanzar = true;
     var cabeza = this.getCabeza();
     var nuevaCabeza;
-    console.log("cabeza: " + cabeza.imprimir());
+    //console.log("cabeza: " + cabeza.imprimir());
 
     if(!this.chocoConParedAlAvanzar(tablero, cabeza)) {
       nuevaCabeza = this.getNuevaCabeza(tablero, cabeza);
@@ -101,8 +101,8 @@ class Culebra {
   }
 
   isNivelCompletado(tablero) {
-    console.log("nivelCompletado: " + this.casillas.length + "," + tablero.numCasillas + "->" + (this.casillas.length == tablero.numCasillas));
-    return this.casillas.length == tablero.numCasillas;
+    //console.log("nivelCompletado: " + this.casillas.length + "," + (tablero.length*tablero.length) + "->" + (this.casillas.length == tablero.length*tablero.length));
+    return this.casillas.length == tablero.length*tablero.length;
   }
 
   limpiarCabezas() {
@@ -112,8 +112,8 @@ class Culebra {
   }
 
   avanzar(tablero, nuevaDireccion) {
-    console.log("avanzando en dirección: " + this.imprimirDireccion(this.direccion));
-    console.log("nuevaDireccion: " + this.imprimirDireccion(nuevaDireccion));
+    //console.log("avanzando en dirección: " + this.imprimirDireccion(this.direccion));
+    //console.log("nuevaDireccion: " + this.imprimirDireccion(nuevaDireccion));
 
     this.determinarDireccionASeguir(nuevaDireccion);
 
@@ -134,7 +134,7 @@ class Culebra {
   }
 
   chocoConParedAlAvanzar(tablero, cabeza) {
-    console.log("chocoConPared según cabeza: " + cabeza.imprimir());
+    //console.log("chocoConPared según cabeza: " + cabeza.imprimir());
     var puedoAvanzar = true;
     if (TECLAS.UP == this.direccion) {
       puedoAvanzar = cabeza.tableroY - 1 >= 0;
@@ -145,7 +145,7 @@ class Culebra {
     } else if (TECLAS.RIGTH == this.direccion) {
       puedoAvanzar = cabeza.tableroX + 1 <= tablero.length - 1;
     }
-    console.log("puedoAvanzar: " + puedoAvanzar);
+    //console.log("puedoAvanzar: " + puedoAvanzar);
     return !puedoAvanzar;
   }
 
@@ -170,7 +170,7 @@ class Culebra {
   }
 
   generarComida(tablero) {
-    console.log("Generando comida");
+    //console.log("Generando comida");
     //console.log("tablero: " +  tablero);
 
     var generada = false;
@@ -179,7 +179,7 @@ class Culebra {
       var comidaX = aleatorio(0,tablero.length - 1);
       var comidaY = aleatorio(0,tablero.length - 1);
 
-      console.log("comida: " + comidaX + "," + comidaY);
+      //console.log("comida: " + comidaX + "," + comidaY);
 
       if(!tablero[comidaY][comidaX].pintado) {
         tablero[comidaY][comidaX].comida = true;

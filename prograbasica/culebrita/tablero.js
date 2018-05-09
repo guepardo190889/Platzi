@@ -11,6 +11,7 @@ class Tablero {
     this.tablero = [];
     this.culebra = new Culebra();
     this.nuevaDireccion = TECLAS.RIGTH;
+    this.velocidadInicial = VELOCIDAD_INICIAL;
     this.jugadorActual = "Desconocido";
     this.jugadores = [];
   }
@@ -42,7 +43,7 @@ class Tablero {
     var xCentral = parseInt(this.tablero.length / 2);
     var yCentral = xCentral;
 
-    console.log("culebraInicial: " + xCentral + "," + yCentral);
+    //console.log("culebraInicial: " + xCentral + "," + yCentral);
 
     for (var i = 0; i < TAMANIO_INICIAL_CULEBRITA; i++) {
       this.culebra.casillas.push(this.tablero[xCentral][yCentral]);
@@ -67,9 +68,13 @@ class Tablero {
   }
 
   mover() {
+    //console.log("velocidadInicial: " + this.velocidadInicial);
     if(this.culebra.isNivelCompletado(this.tablero)) {
-      alert("Haz completado un nivel!!!");
-      casoEspecial();
+      alert("Felicidades" + this.jugadorActual + "! Has completado el nivel " + this.nivel);
+      this.casoEspecial();
+      this.siguienteNivel();
+
+      return true;
     }
     else {
       return this.culebra.avanzar(this.tablero, this.nuevaDireccion);
@@ -97,6 +102,7 @@ class Tablero {
   }
 
   dibujaCanvas() {
+    console.log("dibujaCanvas");
     var tamanioCanvas = this.nivel * CASILLAS_POR_NIVEL * this.tamanioCasilla;
     var pixelesExtrasParaMarco = 6;
 
@@ -129,6 +135,7 @@ class Tablero {
   }
 
   quitarCanvas() {
+    console.log("quitarCanvas");
     var element = document.getElementById("canvasDinamico");
     element.parentNode.removeChild(element);
   }
@@ -141,6 +148,26 @@ class Tablero {
     this.nuevaDireccion = TECLAS.RIGTH;
   }
 
+  validaSiguienteNivel() {
+    var puedoAvanzarSiguienteNivel = false;
+
+    if(VALIDAR_NIVEL_AL_AVANZAR) {
+      if(this.culebra.isNivelCompletado(this.tablero)) {
+          this.siguienteNivel();
+          puedoAvanzarSiguienteNivel = true;
+      }
+      else {
+        alert("Termina el nivel actual para poder continuar");
+      }
+    }
+    else {
+      this.siguienteNivel();
+      puedoAvanzarSiguienteNivel = true;
+    }
+
+    return puedoAvanzarSiguienteNivel;
+  }
+
   reiniciarNivel() {
     console.log("reiniciarNivel");
     this.limpiarViarables();
@@ -150,11 +177,15 @@ class Tablero {
     this.crearCulebritaInicial();
     this.culebra.generarComida(this.tablero);
     this.imprimirNivel();
+    //this.mover();
   }
 
   siguienteNivel() {
     console.log("siguienteNivel");
-    tablero.nivel = tablero.nivel + 1;
+
+    this.nivel = this.nivel + 1;
+    this.velocidadInicial = this.nivel * VELOCIDAD_INICIAL;
+
     this.limpiarViarables();
     this.quitarCanvas();
     this.dibujaCanvas();

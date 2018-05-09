@@ -6,8 +6,8 @@ var interval = 0;
 var btn_reiniciarNivel = document.getElementById("input_buton_reiniciarNivel");
 btn_reiniciarNivel.addEventListener("click", reiniciarNivel);
 
-var btn_siguienteNivel = document.getElementById("input_buton_siguienteNivel");
-btn_siguienteNivel.addEventListener("click", siguienteNivel);
+/*var btn_siguienteNivel = document.getElementById("input_buton_siguienteNivel");
+btn_siguienteNivel.addEventListener("click", siguienteNivel);*/
 
 function reiniciarNivel() {
   tablero.reiniciarNivel();
@@ -15,22 +15,24 @@ function reiniciarNivel() {
 }
 
 function siguienteNivel() {
-  tablero.siguienteNivel();
-  comenzarJuego();
+  if(tablero.validaSiguienteNivel()) {
+    comenzarJuego();
+  }
 }
 
 function cambiarDireccion(event) {
-  console.log("keyCode: " + event.keyCode);
+  //console.log("keyCode: " + event.keyCode);
   if(TECLAS.RIGTH == event.keyCode || TECLAS.LEFT == event.keyCode || TECLAS.UP == event.keyCode || TECLAS.DOWN == event.keyCode) {
     tablero.nuevaDireccion = event.keyCode;
   }
   else {
-    console.log("tecla inválida");
+    //console.log("tecla inválida");
   }
 }
 
 function jugar() {
   var avanzar = tablero.mover();
+  //console.log("avanzar: " + avanzar);
   tablero.imprimirNivel();
 
   if(!avanzar) {
