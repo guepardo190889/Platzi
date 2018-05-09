@@ -1,11 +1,11 @@
 class Tablero {
   constructor() {
     this.nivel = 1;
-    this.numCasillas = this.nivel*10;
+    this.numCasillas = this.nivel*5;
     this.tamanioCasilla = 10;
     this.tamanioInicialCulebrita = 3;
-    this.canvasXInicial = 2;
-    this.canvasYInicial = 2;
+    this.canvasXInicial = 3;
+    this.canvasYInicial = 3;
     this.canvas;
     this.canvasWidth = 0;
     this.canvasHeight = 0;
@@ -69,12 +69,12 @@ class Tablero {
 
   imprimirNivel() {
     document.getElementById("strong_nivel").innerHTML = "Nivel: " + this.nivel;
-    document.getElementById("p_detalle_nivel").innerHTML = "Tamaño: " + (this.nivel * 10) + "<br/>Casillas: " + (this.nivel*10*this.nivel*10) +  "<hr/>";
+    document.getElementById("p_detalle_nivel").innerHTML = "Tamaño: " + (this.numCasillas) + "<br/>Casillas: " + (this.numCasillas*this.numCasillas) +  "<hr/>";
   }
 
   dibujaCanvas() {
-    var tamanioCanvas = this.nivel*10*10;
-    var pixelesExtrasParaMarco = 4;
+    var tamanioCanvas = this.nivel*5*this.tamanioCasilla;
+    var pixelesExtrasParaMarco = 6;
 
     var canvasDinamico = document.createElement("canvas");
     canvasDinamico.width = tamanioCanvas + pixelesExtrasParaMarco;
@@ -97,7 +97,5 @@ class Tablero {
     this.crearCulebritaInicial();
     this.culebra.generarComida(this.tablero);
   }
-
-
 
 }
