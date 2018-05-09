@@ -31,48 +31,59 @@ class Culebra {
     return dir;
   }
 
+  getNuevaCabeza(tablero, cabeza) {
+    console.log("obteniendo nueva cabeza");
+    console.log("dirección: " + this.imprimirDireccion(this.direccion));
+    console.log("cabeza actual: " + cabeza.imprimir());
+
+    var nuevaCabeza;
+    if (TECLAS.UP == this.direccion) {
+      nuevaCabeza = tablero[cabeza.tableroY - 1][cabeza.tableroX];
+      console.log("nueva cabeza " + this.imprimirDireccion(this.direccion) + " obtenida");
+    } else if (TECLAS.DOWN == this.direccion) {
+      nuevaCabeza = tablero[cabeza.tableroY + 1][cabeza.tableroX];
+      console.log("nueva cabeza " + this.imprimirDireccion(this.direccion) + " obtenida");
+    } else if (TECLAS.LEFT == this.direccion) {
+      nuevaCabeza = tablero[cabeza.tableroY][cabeza.tableroX - 1];
+      console.log("nueva cabeza " + this.imprimirDireccion(this.direccion) + " obtenida");
+    } else if (TECLAS.RIGTH == this.direccion) {
+      nuevaCabeza = tablero[cabeza.tableroY][cabeza.tableroX + 1];
+      console.log("nueva cabeza " + this.imprimirDireccion(this.direccion) + " obtenida");
+    }
+
+    console.log("nueva cabeza: " + nuevaCabeza.imprimir());
+    return nuevaCabeza;
+  }
+
   mover(tablero) {
     var avanzar = true;
     var cabeza = this.getCabeza();
-    var nuevaCabeza = null;
-    //console.log("cabeza: " + cabeza.imprimir());
+    var nuevaCabeza;
+    console.log("cabeza: " + cabeza.imprimir());
 
-    if (TECLAS.UP == this.direccion) {
-      if (this.puedoAvanzarArriba()) {
-        nuevaCabeza = tablero[cabeza.tableroY - 1][cabeza.tableroX];
-      } else {
+    if(!this.chocoConParedAlAvanzar(tablero, cabeza)) {
+      nuevaCabeza = this.getNuevaCabeza(tablero, cabeza);
+
+      if(this.chocoConmigoMismoAlAvanzar(nuevaCabeza)) {
         avanzar = false;
+        alert("Te moriste por chocar contigo mismo");
       }
-    } else if (TECLAS.DOWN == this.direccion) {
-      if (this.puedoAvanzarAbajo(tablero)) {
-        nuevaCabeza = tablero[cabeza.tableroY + 1][cabeza.tableroX];
-      } else {
-        avanzar = false;
-      }
-    } else if (TECLAS.LEFT == this.direccion) {
-      if (this.puedoAvanzarIzquierda()) {
-        nuevaCabeza = tablero[cabeza.tableroY][cabeza.tableroX - 1];
-      } else {
-        avanzar = false;
-      }
-    } else if (TECLAS.RIGTH == this.direccion) {
-      if (this.puedoAvanzarDerecha(tablero)) {
-        nuevaCabeza = tablero[cabeza.tableroY][cabeza.tableroX + 1];
-      } else {
-        avanzar = false;
-      }
+    }
+    else {
+      avanzar = false;
+      alert("Te moriste por llegar al final del tablero");
     }
 
     if (avanzar) {
       //console.log("nuevaCabeza: " + nuevaCabeza);
-        this.casillas.unshift(nuevaCabeza);
+      this.casillas.unshift(nuevaCabeza);
 
-      if(!nuevaCabeza.comida) {
-        this.borrarUltimo();
-      }
-      else {
+      if(nuevaCabeza.comida) {
         nuevaCabeza.comida = false;
         this.generarComida(tablero);
+      }
+      else {
+        this.borrarCola();
       }
 
       this.pintar();
@@ -82,20 +93,18 @@ class Culebra {
   }
 
   avanzar(tablero, nuevaDireccion) {
-    console.log("avanzando en dirección: " + this.imprimirDireccion(this.direccion));
-    console.log("nuevaDireccion: " + this.imprimirDireccion(nuevaDireccion));
+    //console.log("avanzando en dirección: " + this.imprimirDireccion(this.direccion));
+    //console.log("nuevaDireccion: " + this.imprimirDireccion(nuevaDireccion));
 
-    var avanzar = true;
+    this.determinarDireccionASeguir(nuevaDireccion);
 
+    return this.mover(tablero);
+  }
+
+  determinarDireccionASeguir(nuevaDireccion) {
     if(this.puedoIrEnEsaDireccion(nuevaDireccion)) {
       this.direccion = nuevaDireccion;
-      avanzar = this.mover(tablero);
     }
-    else {
-      avanzar = this.mover(tablero);
-    }
-
-    return avanzar;
   }
 
   puedoIrEnEsaDireccion(nuevaDireccion) {
@@ -105,25 +114,37 @@ class Culebra {
       (TECLAS.LEFT == this.direccion && TECLAS.RIGTH == nuevaDireccion));
   }
 
-  puedoAvanzarArriba() {
-    //console.log("avanzarArriba-> cabeza.tableroY =" + this.getCabeza().tableroY + ", tamanio: " + tablero.length);
-    return this.getCabeza().tableroY - 1 >= 0;
+  chocoConParedAlAvanzar(tablero, cabeza) {
+    console.log("chocoConPared según cabeza: " + cabeza.imprimir());
+    var puedoAvanzar = true;
+    if (TECLAS.UP == this.direccion) {
+      puedoAvanzar = cabeza.tableroY - 1 >= 0;
+    } else if (TECLAS.DOWN == this.direccion) {
+      puedoAvanzar = cabeza.tableroY + 1 <= tablero.length - 1;
+    } else if (TECLAS.LEFT == this.direccion) {
+      puedoAvanzar = cabeza.tableroX - 1 >= 0;
+    } else if (TECLAS.RIGTH == this.direccion) {
+      puedoAvanzar = cabeza.tableroX + 1 <= tablero.length - 1;
+    }
+    console.log("puedoAvanzar: " + puedoAvanzar);
+    return !puedoAvanzar;
   }
 
-  puedoAvanzarAbajo(tablero) {
-    return this.getCabeza().tableroY + 1 <= tablero.length - 1;
+  chocoConmigoMismoAlAvanzar(nuevaCabeza) {
+    var chocoConmigoMismo = false;
+    for(var i = 0; i < this.casillas.length; i++) {
+      var cuerpo = this.casillas[i];
+
+      if(cuerpo.tableroX == nuevaCabeza.tableroX && cuerpo.tableroY == nuevaCabeza.tableroY) {
+        chocoConmigoMismo = true;
+        break;
+      }
+    }
+
+    return chocoConmigoMismo;
   }
 
-  puedoAvanzarIzquierda() {
-    return this.getCabeza().tableroX - 1 >= 0;
-  }
-
-  puedoAvanzarDerecha(tablero) {
-    //console.log("avanzarDerecha-> cabeza.tableroX =" + cabeza.tableroX + ", tamanio: " + tablero.length);
-    return this.getCabeza().tableroX + 1 <= tablero.length - 1;
-  }
-
-  borrarUltimo() {
+  borrarCola() {
     this.casillas[this.casillas.length - 1].limpiar();
     this.casillas.pop();
   }

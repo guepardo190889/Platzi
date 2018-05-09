@@ -18,7 +18,6 @@ function jugar() {
 
   if(!avanzar) {
     clearInterval(interval);
-    alert("Te moriste por llegar al final del tablero");
   }
 }
 
