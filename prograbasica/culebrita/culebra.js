@@ -128,14 +128,14 @@ class Culebra {
   }
 
   generarComida(tablero) {
-    //console.log("Generando comida");
-    //console.log("tablero: " + tablero);
+    console.log("Generando comida");
+    //console.log("tablero: " +  tablero);
 
     var generada = false;
 
     while(!generada) {
-      var comidaX = aleatorio(0,tablero.length);
-      var comidaY = aleatorio(0,tablero.length);
+      var comidaX = aleatorio(0,tablero.length - 1);
+      var comidaY = aleatorio(0,tablero.length - 1);
 
       console.log("comida: " + comidaX + "," + comidaY);
 
