@@ -71,6 +71,7 @@ class Culebra {
         this.borrarUltimo();
       }
       else {
+        nuevaCabeza.comida = false;
         this.generarComida(tablero);
       }
 
