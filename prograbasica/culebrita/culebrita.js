@@ -36,6 +36,7 @@ function jugar() {
   tablero.imprimirNivel();
 
   if(detenerInterval) {
+    tablero.detenido = true;
     clearInterval(interval);
   }
 }
@@ -44,7 +45,9 @@ function comenzarJuego() {
   //for(var i = 0; i < 25; i++) {
     //tablero.mover();
   //}
-  interval = setInterval(jugar, 1000);
+  tablero.detenido = false;
+  //console.log("velocidadInicial: " + tablero.velocidadInicial);
+  interval = setInterval(jugar, tablero.velocidadInicial);
 }
 
 tablero.inicializar();

@@ -14,10 +14,11 @@ class Tablero {
     this.velocidadInicial = VELOCIDAD_INICIAL;
     this.jugadorActual = "Desconocido";
     this.jugadores = [];
+    this.detenido = false;
   }
 
   crearTablero() {
-    console.log("crearTablero");
+    //console.log("crearTablero");
     this.tablero = new Array(this.numCasillas)
 
     for(var i = 0; i < this.numCasillas; i++) {
@@ -39,7 +40,7 @@ class Tablero {
   }
 
   crearCulebritaInicial() {
-    console.log("crearCulebritaInicial");
+    //console.log("crearCulebritaInicial");
     var xCentral = parseInt(this.tablero.length / 2);
     var yCentral = xCentral;
 
@@ -71,7 +72,7 @@ class Tablero {
     var detenerInterval = true;
     //console.log("velocidadInicial: " + this.velocidadInicial);
     if(this.culebra.isNivelCompletado(this.tablero)) {
-      alert("Felicidades" + this.jugadorActual + "! Has completado el nivel " + this.nivel);
+      alert("Felicidades " + this.jugadorActual + "! Has completado el nivel " + this.nivel);
       this.casoEspecial();
       //this.siguienteNivel();
 
@@ -105,7 +106,7 @@ class Tablero {
   }
 
   dibujaCanvas() {
-    console.log("dibujaCanvas");
+    //console.log("dibujaCanvas");
     var tamanioCanvas = this.nivel * CASILLAS_POR_NIVEL * this.tamanioCasilla;
     var pixelesExtrasParaMarco = 6;
 
@@ -138,7 +139,7 @@ class Tablero {
   }
 
   quitarCanvas() {
-    console.log("quitarCanvas");
+    //console.log("quitarCanvas");
     var element = document.getElementById("canvasDinamico");
     element.parentNode.removeChild(element);
   }
@@ -154,25 +155,29 @@ class Tablero {
   validaSiguienteNivel() {
     var puedoAvanzarSiguienteNivel = false;
 
-    if(VALIDAR_NIVEL_AL_AVANZAR) {
+    if(PUEDO_SALTAR_NIVELES) {
+      if(this.detenido) {
+        this.siguienteNivel();
+        puedoAvanzarSiguienteNivel = true;
+      }
+    }
+    else {
       if(this.culebra.isNivelCompletado(this.tablero)) {
+        if(this.detenido) {
           this.siguienteNivel();
           puedoAvanzarSiguienteNivel = true;
+        }
       }
       else {
         alert("Termina el nivel actual para poder continuar");
       }
-    }
-    else {
-      this.siguienteNivel();
-      puedoAvanzarSiguienteNivel = true;
     }
 
     return puedoAvanzarSiguienteNivel;
   }
 
   reiniciarNivel() {
-    console.log("reiniciarNivel");
+    //console.log("reiniciarNivel");
     this.limpiarViarables();
     this.limpiarCanvas();
     this.dibujarMarco();
@@ -184,10 +189,11 @@ class Tablero {
   }
 
   siguienteNivel() {
-    console.log("siguienteNivel");
+    //console.log("siguienteNivel");
 
     this.nivel = this.nivel + 1;
-    this.velocidadInicial = this.nivel * VELOCIDAD_INICIAL;
+    this.velocidadInicial = parseInt(this.velocidadInicial / 2);
+    //console.log("velocidadInicial: " + this.velocidadInicial);
 
     this.limpiarViarables();
     this.quitarCanvas();
