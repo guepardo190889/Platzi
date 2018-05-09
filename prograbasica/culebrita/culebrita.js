@@ -6,8 +6,8 @@ var interval = 0;
 var btn_reiniciarNivel = document.getElementById("input_buton_reiniciarNivel");
 btn_reiniciarNivel.addEventListener("click", reiniciarNivel);
 
-/*var btn_siguienteNivel = document.getElementById("input_buton_siguienteNivel");
-btn_siguienteNivel.addEventListener("click", siguienteNivel);*/
+var btn_siguienteNivel = document.getElementById("input_buton_siguienteNivel");
+btn_siguienteNivel.addEventListener("click", siguienteNivel);
 
 function reiniciarNivel() {
   tablero.reiniciarNivel();
@@ -31,11 +31,11 @@ function cambiarDireccion(event) {
 }
 
 function jugar() {
-  var avanzar = tablero.mover();
+  var detenerInterval = tablero.mover();
   //console.log("avanzar: " + avanzar);
   tablero.imprimirNivel();
 
-  if(!avanzar) {
+  if(detenerInterval) {
     clearInterval(interval);
   }
 }

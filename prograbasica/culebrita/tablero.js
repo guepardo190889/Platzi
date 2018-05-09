@@ -68,17 +68,20 @@ class Tablero {
   }
 
   mover() {
+    var detenerInterval = true;
     //console.log("velocidadInicial: " + this.velocidadInicial);
     if(this.culebra.isNivelCompletado(this.tablero)) {
       alert("Felicidades" + this.jugadorActual + "! Has completado el nivel " + this.nivel);
       this.casoEspecial();
-      this.siguienteNivel();
+      //this.siguienteNivel();
 
-      return true;
+      detenerInterval = true;
     }
     else {
-      return this.culebra.avanzar(this.tablero, this.nuevaDireccion);
+      detenerInterval = !this.culebra.avanzar(this.tablero, this.nuevaDireccion);
     }
+
+    return detenerInterval;
   }
 
   casoEspecial() {
