@@ -6,8 +6,16 @@ var interval = 0;
 var btn_reiniciarNivel = document.getElementById("input_buton_reiniciarNivel");
 btn_reiniciarNivel.addEventListener("click", reiniciarNivel);
 
+var btn_siguienteNivel = document.getElementById("input_buton_siguienteNivel");
+btn_siguienteNivel.addEventListener("click", siguienteNivel);
+
 function reiniciarNivel() {
   tablero.reiniciarNivel();
+  comenzarJuego();
+}
+
+function siguienteNivel() {
+  tablero.siguienteNivel();
   comenzarJuego();
 }
 

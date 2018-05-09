@@ -6,20 +6,34 @@ class Casilla {
     this.canvasY = canvasY;
     this.pintado = false;
     this.comida = false;
+    this.cabeza = false;
     this.tamanio = tamanio;
     this.canvas = canvasContext;
   }
 
-  pintar() {
+  pintar(forzarPintado) {
     //console.log("pintando: " + this.imprimir());
     var canvasXOrigen = this.canvasX;
     var canvasYOrigen = this.canvasY;
     var canvasXDestino = canvasXOrigen + this.tamanio;
 
-    if(!this.pintado) {
+    if(forzarPintado) {
+      this.limpiar();
+    }
+
+    if(!this.pintado || forzarPintado) {
       for (var i = 0; i < this.tamanio; i++) {
         //console.log("draw: " + canvasXOrigen+","+canvasYOrigen+","+canvasXDestino+","+canvasYOrigen);
-        dibujar(this.canvas, "black", canvasXOrigen, canvasYOrigen, canvasXDestino, canvasYOrigen);
+        if(this.comida){
+          dibujar(this.canvas, "red", canvasXOrigen, canvasYOrigen, canvasXDestino, canvasYOrigen);
+        }
+        else if(this.cabeza) {
+          dibujar(this.canvas, "black", canvasXOrigen, canvasYOrigen, canvasXDestino, canvasYOrigen);
+        }
+        else {
+          dibujar(this.canvas, "gray", canvasXOrigen, canvasYOrigen, canvasXDestino, canvasYOrigen);
+        }
+
         canvasYOrigen = canvasYOrigen + 1;
       }
 
@@ -34,7 +48,7 @@ class Casilla {
 
     //console.log("clear: " + this.canvasX+","+this.canvasY+","+(this.canvasX + this.tamanio)+","+(this.canvasY + this.tamanio));
     this.canvas.clearRect(this.canvasX, this.canvasY - 1, this.tamanio, this.tamanio + 1);
-    this.pintado = false;
+    //this.pintado = false;
   }
 
   imprimir() {

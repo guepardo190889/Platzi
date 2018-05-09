@@ -7,7 +7,7 @@ class Culebra {
   pintar() {
     for (var i = 0; i < this.casillas.length; i++) {
       if (!this.casillas[i].pintado) {
-        this.casillas[i].pintar();
+        this.casillas[i].pintar(false);
       }
     }
   }
@@ -75,12 +75,16 @@ class Culebra {
     }
 
     if (avanzar) {
+      nuevaCabeza.cabeza = true;
+      this.limpiarCabezas();
+      cabeza.pintar(true);
       //console.log("nuevaCabeza: " + nuevaCabeza);
       this.casillas.unshift(nuevaCabeza);
 
       if(nuevaCabeza.comida) {
         nuevaCabeza.comida = false;
         this.generarComida(tablero);
+        nuevaCabeza.pintar(true);
       }
       else {
         this.borrarCola();
@@ -90,6 +94,12 @@ class Culebra {
     }
 
     return avanzar;
+  }
+
+  limpiarCabezas() {
+    for (var i = 0; i < this.casillas.length; i++) {
+      this.casillas[i].cabeza = false;
+    }
   }
 
   avanzar(tablero, nuevaDireccion) {
@@ -146,6 +156,7 @@ class Culebra {
 
   borrarCola() {
     this.casillas[this.casillas.length - 1].limpiar();
+    this.casillas[this.casillas.length - 1].pintado = false;
     this.casillas.pop();
   }
 
@@ -163,7 +174,7 @@ class Culebra {
 
       if(!tablero[comidaY][comidaX].pintado) {
         tablero[comidaY][comidaX].comida = true;
-        tablero[comidaY][comidaX].pintar();
+        tablero[comidaY][comidaX].pintar(false);
         generada = true;
       }
     }

@@ -6,3 +6,4 @@ var TECLAS = {
 };
 
 var TAMANIO_INICIAL_CULEBRITA = 3;
+var CASILLAS_POR_NIVEL = 5;

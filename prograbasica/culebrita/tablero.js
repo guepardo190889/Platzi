@@ -1,7 +1,7 @@
 class Tablero {
   constructor() {
     this.nivel = 1;
-    this.numCasillas = this.nivel*5;
+    this.numCasillas = this.nivel * CASILLAS_POR_NIVEL;
     this.tamanioCasilla = 10;
     this.canvasXInicial = 3;
     this.canvasYInicial = 3;
@@ -46,6 +46,11 @@ class Tablero {
 
     for (var i = 0; i < TAMANIO_INICIAL_CULEBRITA; i++) {
       this.culebra.casillas.push(this.tablero[xCentral][yCentral]);
+
+      if(i == 0){
+        this.culebra.casillas[i].cabeza = true;
+      }
+
       yCentral = yCentral - 1;
     }
 
@@ -62,7 +67,12 @@ class Tablero {
   }
 
   mover() {
-    return this.culebra.avanzar(this.tablero, this.nuevaDireccion);
+    if(this.isNivelCompletado()) {
+      alert("Haz completado un nivel!!!");
+    }
+    else {
+      return this.culebra.avanzar(this.tablero, this.nuevaDireccion);
+    }
   }
 
   dibujarMarco() {
@@ -76,14 +86,15 @@ class Tablero {
     document.getElementById("strong_nivel").innerHTML = "Nivel: " + this.nivel + "  -  " + (this.jugadorActual);
     document.getElementById("p_detalle_nivel").innerHTML = "Tamaño: " + (this.numCasillas)
     + "<br/>Casillas: " + (this.numCasillas*this.numCasillas)
-    + "<br/>Comida: " + (this.culebra.getComidas());
+    + "<br/>Puntos: " + (this.culebra.getComidas());
   }
 
   dibujaCanvas() {
-    var tamanioCanvas = this.nivel*5*this.tamanioCasilla;
+    var tamanioCanvas = this.nivel * CASILLAS_POR_NIVEL * this.tamanioCasilla;
     var pixelesExtrasParaMarco = 6;
 
     var canvasDinamico = document.createElement("canvas");
+    canvasDinamico.id = "canvasDinamico";
     canvasDinamico.width = tamanioCanvas + pixelesExtrasParaMarco;
     canvasDinamico.height = tamanioCanvas + pixelesExtrasParaMarco;
 
@@ -110,19 +121,45 @@ class Tablero {
       this.canvas.clearRect(0, 0, this.canvasWidth, this.canvasHeight);
   }
 
-  reiniciarNivel() {
-    console.log("reiniciarNivel");
+  quitarCanvas() {
+    var element = document.getElementById("canvasDinamico");
+    element.parentNode.removeChild(element);
+  }
+
+  limpiarViarables() {
     this.canvasXInicial = 3;
     this.canvasYInicial = 3;
+    this.numCasillas = this.nivel * CASILLAS_POR_NIVEL;
     this.culebra = new Culebra();
     this.nuevaDireccion = TECLAS.RIGTH;
+  }
 
+  reiniciarNivel() {
+    console.log("reiniciarNivel");
+    this.limpiarViarables();
     this.limpiarCanvas();
     this.dibujarMarco();
     this.crearTablero();
     this.crearCulebritaInicial();
     this.culebra.generarComida(this.tablero);
     this.imprimirNivel();
+  }
+
+  siguienteNivel() {
+    console.log("siguienteNivel");
+    tablero.nivel = tablero.nivel + 1;
+    this.limpiarViarables();
+    this.quitarCanvas();
+    this.dibujaCanvas();
+    this.dibujarMarco();
+    this.crearTablero();
+    this.crearCulebritaInicial();
+    this.culebra.generarComida(this.tablero);
+    this.imprimirNivel();
+  }
+
+  isNivelCompletado() {
+    return this.culebra.length == this.numCasillas;
   }
 
   inicializar() {
