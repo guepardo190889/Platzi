@@ -67,11 +67,18 @@ class Tablero {
   }
 
   mover() {
-    if(this.isNivelCompletado()) {
+    if(this.culebra.isNivelCompletado(this.tablero)) {
       alert("Haz completado un nivel!!!");
+      casoEspecial();
     }
     else {
       return this.culebra.avanzar(this.tablero, this.nuevaDireccion);
+    }
+  }
+
+  casoEspecial() {
+    if(this.nivel == NIVEL_MINIMO_CASO_ESPECIAL) {
+      alert(this.jugadorActual + ", ¿quieres casarte conmigo?");
     }
   }
 
@@ -156,10 +163,6 @@ class Tablero {
     this.crearCulebritaInicial();
     this.culebra.generarComida(this.tablero);
     this.imprimirNivel();
-  }
-
-  isNivelCompletado() {
-    return this.culebra.length == this.numCasillas;
   }
 
   inicializar() {

@@ -83,7 +83,11 @@ class Culebra {
 
       if(nuevaCabeza.comida) {
         nuevaCabeza.comida = false;
-        this.generarComida(tablero);
+
+        if(!this.isNivelCompletado(tablero)) {
+          this.generarComida(tablero);
+        }
+
         nuevaCabeza.pintar(true);
       }
       else {
@@ -94,6 +98,11 @@ class Culebra {
     }
 
     return avanzar;
+  }
+
+  isNivelCompletado(tablero) {
+    console.log("nivelCompletado: " + this.casillas.length + "," + tablero.numCasillas + "->" + (this.casillas.length == tablero.numCasillas));
+    return this.casillas.length == tablero.numCasillas;
   }
 
   limpiarCabezas() {
@@ -181,7 +190,7 @@ class Culebra {
   }
 
   getComidas() {
-    var comidas = this.casillas.length - TAMANIO_INICIAL_CULEBRITA;
+    var comidas = this.casillas.length; // - TAMANIO_INICIAL_CULEBRITA;
     if(comidas < 0) {
       comidas = 0;
     }
