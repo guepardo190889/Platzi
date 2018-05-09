@@ -4,3 +4,5 @@ var TECLAS = {
   LEFT: 37,
   RIGTH: 39
 };
+
+var TAMANIO_INICIAL_CULEBRITA = 3;

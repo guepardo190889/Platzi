@@ -15,6 +15,7 @@ function cambiarDireccion(event) {
 
 function jugar() {
   var avanzar = tablero.mover();
+  tablero.imprimirNivel();
 
   if(!avanzar) {
     clearInterval(interval);

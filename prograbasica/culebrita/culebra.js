@@ -169,6 +169,14 @@ class Culebra {
     }
   }
 
+  getComidas() {
+    var comidas = this.casillas.length - TAMANIO_INICIAL_CULEBRITA;
+    if(comidas < 0) {
+      comidas = 0;
+    }
+    return comidas;
+  }
+
   imprimir() {
     var str = "casillas:" + this.casillas +
     ", direccion:" + this.direccion;
