@@ -3,7 +3,6 @@ class Tablero {
     this.nivel = 1;
     this.numCasillas = this.nivel*5;
     this.tamanioCasilla = 10;
-    this.tamanioInicialCulebrita = TAMANIO_INICIAL_CULEBRITA;
     this.canvasXInicial = 3;
     this.canvasYInicial = 3;
     this.canvas;
@@ -17,6 +16,7 @@ class Tablero {
   }
 
   crearTablero() {
+    console.log("crearTablero");
     this.tablero = new Array(this.numCasillas)
 
     for(var i = 0; i < this.numCasillas; i++) {
@@ -38,10 +38,13 @@ class Tablero {
   }
 
   crearCulebritaInicial() {
+    console.log("crearCulebritaInicial");
     var xCentral = parseInt(this.tablero.length / 2);
     var yCentral = xCentral;
 
-    for (var i = 0; i < this.tamanioInicialCulebrita; i++) {
+    console.log("culebraInicial: " + xCentral + "," + yCentral);
+
+    for (var i = 0; i < TAMANIO_INICIAL_CULEBRITA; i++) {
       this.culebra.casillas.push(this.tablero[xCentral][yCentral]);
       yCentral = yCentral - 1;
     }
@@ -73,8 +76,7 @@ class Tablero {
     document.getElementById("strong_nivel").innerHTML = "Nivel: " + this.nivel + "  -  " + (this.jugadorActual);
     document.getElementById("p_detalle_nivel").innerHTML = "Tamaño: " + (this.numCasillas)
     + "<br/>Casillas: " + (this.numCasillas*this.numCasillas)
-    + "<br/>Comida: " + (this.culebra.getComidas())
-    +  "<hr/>";
+    + "<br/>Comida: " + (this.culebra.getComidas());
   }
 
   dibujaCanvas() {
@@ -104,13 +106,31 @@ class Tablero {
     }
   }
 
+  limpiarCanvas() {
+      this.canvas.clearRect(0, 0, this.canvasWidth, this.canvasHeight);
+  }
+
+  reiniciarNivel() {
+    console.log("reiniciarNivel");
+    this.canvasXInicial = 3;
+    this.canvasYInicial = 3;
+    this.culebra = new Culebra();
+    this.nuevaDireccion = TECLAS.RIGTH;
+
+    this.limpiarCanvas();
+    this.dibujarMarco();
+    this.crearTablero();
+    this.crearCulebritaInicial();
+    this.culebra.generarComida(this.tablero);
+    this.imprimirNivel();
+  }
+
   inicializar() {
-    //console.log("inicializar");
     this.guardarJugador();
     this.imprimirNivel();
     this.dibujaCanvas();
-    this.crearTablero();
     this.dibujarMarco();
+    this.crearTablero();
     this.crearCulebritaInicial();
     this.culebra.generarComida(this.tablero);
   }

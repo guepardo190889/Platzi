@@ -93,8 +93,8 @@ class Culebra {
   }
 
   avanzar(tablero, nuevaDireccion) {
-    //console.log("avanzando en dirección: " + this.imprimirDireccion(this.direccion));
-    //console.log("nuevaDireccion: " + this.imprimirDireccion(nuevaDireccion));
+    console.log("avanzando en dirección: " + this.imprimirDireccion(this.direccion));
+    console.log("nuevaDireccion: " + this.imprimirDireccion(nuevaDireccion));
 
     this.determinarDireccionASeguir(nuevaDireccion);
 

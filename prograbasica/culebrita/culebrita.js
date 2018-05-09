@@ -3,6 +3,14 @@ document.addEventListener("keydown", cambiarDireccion);
 var tablero = new Tablero();
 var interval = 0;
 
+var btn_reiniciarNivel = document.getElementById("input_buton_reiniciarNivel");
+btn_reiniciarNivel.addEventListener("click", reiniciarNivel);
+
+function reiniciarNivel() {
+  tablero.reiniciarNivel();
+  comenzarJuego();
+}
+
 function cambiarDireccion(event) {
   console.log("keyCode: " + event.keyCode);
   if(TECLAS.RIGTH == event.keyCode || TECLAS.LEFT == event.keyCode || TECLAS.UP == event.keyCode || TECLAS.DOWN == event.keyCode) {
