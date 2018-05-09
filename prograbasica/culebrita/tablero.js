@@ -82,8 +82,8 @@ class Tablero {
   }
 
   casoEspecial() {
-    if(this.nivel == NIVEL_MINIMO_CASO_ESPECIAL) {
-      alert(this.jugadorActual + ", ¿quieres casarte conmigo?");
+    if(NIVEL_MINIMO_CASO_ESPECIAL == this.nivel && CASO_ESPECIAL_HABILITADO) {
+      alert(this.jugadorActual + ", " + MENSAJE_CASO_ESPECIAL);
     }
   }
 
