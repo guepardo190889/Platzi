@@ -158,6 +158,7 @@ class Tablero {
     this.culebra = new Culebra();
     this.nuevaDireccion = TECLAS.RIGTH;
     imprimirMensaje("");
+    imprimirMensajeEspecial("");
   }
 
   validaSiguienteNivel() {
@@ -186,14 +187,16 @@ class Tablero {
 
   reiniciarNivel() {
     //console.log("reiniciarNivel");
-    this.limpiarViarables();
-    this.limpiarCanvas();
-    this.dibujarMarco();
-    this.crearTablero();
-    this.crearCulebritaInicial();
-    this.culebra.generarComida(this.tablero);
-    this.imprimirNivel();
-    //this.mover();
+    if(this.detenido) {
+      this.limpiarViarables();
+      this.limpiarCanvas();
+      this.dibujarMarco();
+      this.crearTablero();
+      this.crearCulebritaInicial();
+      this.culebra.generarComida(this.tablero);
+      this.imprimirNivel();
+      //this.mover();
+    }
   }
 
   siguienteNivel() {
