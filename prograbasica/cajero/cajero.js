@@ -41,11 +41,11 @@ function entregarDinero() {
 var caja = [];
 var entregado = [];
 
-caja.push(new Billete(125,5));
-caja.push(new Billete(50,10));
-caja.push(new Billete(20,5));
-caja.push(new Billete(10,10));
-caja.push(new Billete(5,5));
+caja.push(new Billete(1000,4));
+caja.push(new Billete(500,8));
+caja.push(new Billete(200,15));
+caja.push(new Billete(100,10));
+caja.push(new Billete(50,20));
 
 var dinero = 0;
 var div = 0;
